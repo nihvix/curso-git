@@ -15,18 +15,18 @@ const getPosts = async (user) => {
 }
 
 const getCommentsForEachPost = async (posts) => {
-  const res = await Promise.all(posts.map(post => 
-    fetch(`${url}/comments?postId=${post.id}&_limit=2`)  
+  const res = await Promise.all(posts.map(post =>
+    fetch(`${url}/comments?postId=${post.id}&_limit=2`)
   ))
   const postComments = await Promise.all(res.map(r => r.json()));
-  
+
   postComments.forEach((comments, i) => posts[i].comments = comments);
 }
 
 const renderHtml = (user, posts) => {
   const content = document.getElementById('content');
   content.innerHTML += `<h3>Posts del usuario ${user.email}</h3>`;
-  
+
   posts.forEach(post => {
     content.innerHTML += `
     <div class="post">
@@ -52,3 +52,7 @@ const getBlogContent = async () => {
 }
 
 getBlogContent();
+
+const loadAdds = () => {
+  console.log('Adds loaded');
+}
